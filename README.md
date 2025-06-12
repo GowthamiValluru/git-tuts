@@ -1,103 +1,68 @@
-// libs/item/onboarding/PickupDeliverySelector.jsx
-import React, { useState } from "react";
-import PropTypes from "prop-types";
-import { useTranslation } from "react-i18next";
-import "./PickupDeliverySelector.css";
+import React, { useState } from 'react';
+import Modal from '@mui/material/Modal';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
 
-const PickupDeliverySelector = ({ defaultMode }) => {
-  const [mode, setMode] = useState(defaultMode || "pickup");
-  const { t } = useTranslation();
+const style = {
+  position: 'absolute' as const,
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  bgcolor: 'background.paper',
+  border: '1px solid #ccc',
+  boxShadow: 24,
+  p: 4,
+  borderRadius: '10px'
+};
+
+export const ExtraSavingsModal = () => {
+  const [open, setOpen] = useState(false);
+
+  const handleOpen = () => {
+    console.log('Beacon: Modal opened');
+    setOpen(true);
+  };
+
+  const handleClose = () => setOpen(false);
 
   return (
-    <div className="pickup-delivery-selector">
-      <button
-        className={`option ${mode === "pickup" ? "active" : ""}`}
-        onClick={() => setMode("pickup")}
+    <div>
+      <Button onClick={handleOpen} variant="contained" aria-label="Show Extra Discount Info">
+        Show Extra Discount Info
+      </Button>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="extra-savings-title"
+        aria-describedby="extra-savings-description"
       >
-        {t("Pickup")}
-      </button>
-      <button
-        className={`option ${mode === "delivery" ? "active" : ""}`}
-        onClick={() => setMode("delivery")}
-      >
-        {t("Delivery")}
-      </button>
+        <Box sx={style}>
+          <Typography id="extra-savings-title" variant="h6" component="h2">
+            Save an extra 20% on your first purchase!
+          </Typography>
+          <Typography id="extra-savings-description" sx={{ mt: 2 }}>
+            Only applicable on eligible items. Terms apply.
+          </Typography>
+          <Button onClick={handleClose} sx={{ mt: 2 }} variant="outlined">
+            Close
+          </Button>
+        </Box>
+      </Modal>
     </div>
   );
 };
 
-PickupDeliverySelector.propTypes = {
-  defaultMode: PropTypes.string,
-};
-
-export default PickupDeliverySelector;
 
 
-
-
-.pickup-delivery-selector {
-  display: flex;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-
-.option {
-  flex: 1;
-  padding: 8px 16px;
-  border: none;
-  background: #f5f5f5;
-  cursor: pointer;
-}
-
-.option.active {
-  background: #0071dc;
-  color: white;
-  font-weight: bold;
-}
 
 
 import React from 'react';
-import PickupDeliverySelector from './PickupDeliverySelector';
+import { ExtraSavingsModal } from './extra-savings-modal.component';
 
 export default {
-  title: 'Item/Onboarding/PickupDeliverySelector',
-  component: PickupDeliverySelector,
+  title: 'Item/ExtraSavingsModal',
+  component: ExtraSavingsModal,
 };
 
-const Template = (args) => <PickupDeliverySelector {...args} />;
-
-export const Default = Template.bind({});
-Default.args = {
-  defaultMode: 'pickup'
-};
-
-
-import { render, screen, fireEvent } from '@testing-library/react';
-import PickupDeliverySelector from './PickupDeliverySelector';
-
-test('renders both Pickup and Delivery options', () => {
-  render(<PickupDeliverySelector />);
-  expect(screen.getByText('Pickup')).toBeInTheDocument();
-  expect(screen.getByText('Delivery')).toBeInTheDocument();
-});
-
-test('defaults to Pickup', () => {
-  render(<PickupDeliverySelector />);
-  expect(screen.getByText('Pickup')).toHaveClass('active');
-});
-
-test('switches to Delivery on click', () => {
-  render(<PickupDeliverySelector />);
-  fireEvent.click(screen.getByText('Delivery'));
-  expect(screen.getByText('Delivery')).toHaveClass('active');
-});
-
-
-
-
-
-
-
- "react/jsx-filename-extension": [1, { "extensions": [".jsx", ".js"] }]
-
- 
+export const Default = () => <ExtraSavingsModal />;
