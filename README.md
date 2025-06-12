@@ -1,51 +1,29 @@
-import React, { useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import { Button, Modal } from '@mui/material'; // assuming you're using MUI
+import i18n from 'i18next';
+import { initReactI18next } from 'react-i18next';
 
-const style = {
-  borderRadius: "10px",
-};
-
-export const ExtraSavingsModal = () => {
-  const [open, setOpen] = useState(false);
-  const { t } = useTranslation();
-
-  const handleOpen = () => {
-    if (process.env.NODE_ENV === 'development') {
-      console.log("Beacon: Modal opened");
+i18n.use(initReactI18next).init({
+  lng: 'en',
+  fallbackLng: 'en',
+  resources: {
+    en: {
+      translation: {
+        extraSavings: {
+          showDiscountInfo: 'Show Extra Discount Info',
+          modalTitle: 'Show Extra Discount Info',
+          modalDescription: 'Extra discount details',
+          save20: 'Save an extra 20% on your first purchase!',
+          terms: 'Only applicable on eligible items. Terms apply.'
+        },
+        common: {
+          close: 'Close'
+        }
+      }
     }
-    setOpen(true);
-  };
+  }
+});
 
-  const handleClose = () => {
-    setOpen(false);
-  };
+export default i18n;
 
-  return (
-    <div>
-      <Button
-        onClick={handleOpen}
-        variant="contained"
-        aria-label={t('extraSavings.showDiscountInfo')}
-      >
-        {t('extraSavings.showDiscountInfo')}
-      </Button>
-
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby={t('extraSavings.modalTitle')}
-        aria-describedby={t('extraSavings.modalDescription')}
-      >
-        <div style={style}>
-          <h2>{t('extraSavings.save20')}</h2>
-          <p>{t('extraSavings.terms')}</p>
-          <Button onClick={handleClose}>{t('common.close')}</Button>
-        </div>
-      </Modal>
-    </div>
-  );
-};
 
 
 
@@ -53,7 +31,7 @@ export const ExtraSavingsModal = () => {
 import React from 'react';
 import { ExtraSavingsModal } from './extra-savings-modal.component';
 import { I18nextProvider } from 'react-i18next';
-import i18n from '../../../i18n'; // adjust this import path based on your project
+import i18n from './i18n'; // make sure this path matches
 
 export default {
   title: 'Item/ExtraSavingsModal',
@@ -65,4 +43,3 @@ export const Default = () => (
     <ExtraSavingsModal />
   </I18nextProvider>
 );
-
