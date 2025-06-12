@@ -46,3 +46,23 @@ export const ExtraSavingsModal = () => {
     </div>
   );
 };
+
+
+
+
+import React from 'react';
+import { ExtraSavingsModal } from './extra-savings-modal.component';
+import { I18nextProvider } from 'react-i18next';
+import i18n from '../../../i18n'; // adjust this import path based on your project
+
+export default {
+  title: 'Item/ExtraSavingsModal',
+  component: ExtraSavingsModal,
+};
+
+export const Default = () => (
+  <I18nextProvider i18n={i18n}>
+    <ExtraSavingsModal />
+  </I18nextProvider>
+);
+
