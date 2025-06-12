@@ -66,3 +66,11 @@ export default {
 };
 
 export const Default = () => <ExtraSavingsModal />;
+
+
+
+
+if (process.env.NODE_ENV === 'development') {
+  console.log("Beacon: Modal opened");
+}
+
