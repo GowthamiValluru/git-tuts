@@ -1,28 +1,36 @@
-import React, { useState } from 'react';
-import './PickupDeliverySelector.css';
+import React, { useState } from "react";
+import PropTypes from "prop-types";
+import { useTranslation } from "react-i18next";
+import "./PickupDeliverySelector.css";
 
 const PickupDeliverySelector = ({ defaultMode }) => {
-  const [mode, setMode] = useState(defaultMode || 'pickup');
+  const [mode, setMode] = useState(defaultMode || "pickup");
+  const { t } = useTranslation();
 
   return (
     <div className="pickup-delivery-selector">
       <button
-        className={`option ${mode === 'pickup' ? 'active' : ''}`}
-        onClick={() => setMode('pickup')}
+        className={`option ${mode === "pickup" ? "active" : ""}`}
+        onClick={() => setMode("pickup")}
       >
-        Pickup
+        {t("Pickup")}
       </button>
       <button
-        className={`option ${mode === 'delivery' ? 'active' : ''}`}
-        onClick={() => setMode('delivery')}
+        className={`option ${mode === "delivery" ? "active" : ""}`}
+        onClick={() => setMode("delivery")}
       >
-        Delivery
+        {t("Delivery")}
       </button>
     </div>
   );
 };
 
+PickupDeliverySelector.propTypes = {
+  defaultMode: PropTypes.string,
+};
+
 export default PickupDeliverySelector;
+
 
 
 .pickup-delivery-selector {
