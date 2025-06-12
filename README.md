@@ -91,3 +91,13 @@ test('switches to Delivery on click', () => {
   fireEvent.click(screen.getByText('Delivery'));
   expect(screen.getByText('Delivery')).toHaveClass('active');
 });
+
+
+
+
+
+
+
+ "react/jsx-filename-extension": [1, { "extensions": [".jsx", ".js"] }]
+
+ 
